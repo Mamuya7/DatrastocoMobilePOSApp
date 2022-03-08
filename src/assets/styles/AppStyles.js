@@ -307,6 +307,22 @@ submitedItemCard: {
   justifyContent: 'center',
   borderBottomWidth: 0.3,
   borderColor: 'orange'
+},
+
+loginWarning: {
+  backgroundColor: '#f0fff0',
+  justifyContent: 'center',
+  alignItems: 'center',
+  top: '35%',
+  paddingBottom: 20,
+  paddingTop: 10,
+  elevation: 20,
+  margin: 10,
+  borderRadius: 10
+}, 
+
+warningText: {
+  color: 'orange'
 }
 
 

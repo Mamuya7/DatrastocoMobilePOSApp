@@ -1,16 +1,31 @@
 import users from "../data/users";
 import scannedItems from "../data/scannedItems";
 import submitedItemsOrder from "../data/submitedItemsOrder";
+import Queries from "../storage/sqlite/Queries";
 
 class AuthServices {
-  login = (username,password) => {
-
-    var result = 0;
-      for(x in users){
-         (username == users[x].username && password == users[x].password) ? result = 1: result = 0;
+  getOrders = async () => {
+      var results = await Queries.getOrders();
+      var l = results.rows.length;
+      const items = [];
+      for(var x=0; x<l; x++){
+        var currentItem = {
+          'ItemName':results.rows.item(x).ItemName,
+          'ItemCompany':results.rows.item(x).ItemCompany,
+          'ItemQts':results.rows.item(x).ItemQts,
+          'TotalNumberOfItem':results.rows.item(x).TotalNumberOfItem,
+          'Price':results.rows.item(x).Price,
+          'TotalPrice':results.rows.item(x).TotalPrice,
+          'Status':results.rows.item(x).Status
         }
-      return result;
-      
+        items.push(currentItem);
+      }
+
+      if(items.length!=0){
+        return items;
+      }else{
+        console.log('no orders recorded');
+      }
   }
 
   registerUser = (username,password) => {

@@ -4,9 +4,8 @@ import { styles } from '../../assets/styles/AppStyles'
 import AuthServices from '../../services/AuthServices'
 
 
-const AppItemCard = ({ itemName,itemCompany, itemQts,  totalNumber }) => {
-
-  const [price, setPrice] = useState('0')
+const AppItemCard = ({ itemName,itemCompany, itemQts,  totalNumber, price }) => {
+  const [modifiedPrice, setModifiedPrice] = useState(price)
 
   return (
     <View style = {styles.itemCard}>
@@ -19,13 +18,13 @@ const AppItemCard = ({ itemName,itemCompany, itemQts,  totalNumber }) => {
             <Text style = {styles.itemText}>Price: <Text style = {styles.subItemText}>TSh. </Text> </Text>
             <TextInput 
               style = {styles.invoicePriceInput} 
-              placeholder = '0'
               placeholderTextColor={'#808080'}
-              onChangeText = {(e) => setPrice(e)}
+              onChangeText = {(e) => setModifiedPrice(e)}
               keyboardType = 'numeric'
+              placeholder={price}
             />
          </View>
-         <Text style = {[styles.itemText, {fontWeight: 'bold', fontSize: 15}]}>Total Price: TSh.{ AuthServices.totalPrice(price,totalNumber) } </Text>
+         <Text style = {[styles.itemText, {fontWeight: 'bold', fontSize: 15}]}>Total Price: TSh.{ AuthServices.totalPrice(modifiedPrice,totalNumber) } </Text>
         </View>
     </View>
   )

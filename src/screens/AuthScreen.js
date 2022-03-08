@@ -1,18 +1,50 @@
-import { View, Text, Pressable } from 'react-native';
+import { View, Text, Pressable, Alert, Modal } from 'react-native';
 import React, { useState } from 'react';
 import { styles } from '../assets/styles/AppStyles';
 import AppTextInput from '../component/coreComponent/AppTextInput';
 import AppButton from '../component/coreComponent/AppButton';
 import AuthServices from '../services/AuthServices';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthScreen = ({navigation}) => {
 
   const [username, setUsername] = useState(null);
   const [Password, setPassword] = useState(null);
-  var isValidUser = 0;
+  const [modalVisible, setModalVisible] = useState(false)
+  
+  const getUser = async () => {
+    try {
+      const userObj = await AsyncStorage.getItem('User')
+      let user = JSON.parse(userObj); 
+      if(user.username == username && user.password == Password){
+        navigation.navigate('Home'); 
+      }else{
+        setModalVisible(true)
+      }  
+    } catch(e) {
+      console.log(e);
+    }
 
+  }
 
   return (
+    <>
+    <Modal
+      visible = {modalVisible}
+      animationType =  'slide'
+      transparent = {true} 
+    >
+      <View style = {styles.loginWarning}>
+        <Text style = {styles.warningText}>Incorrect username or password</Text>
+        <Text style = {styles.warningText}>Please sign up first or enter correct sign in entries correctly. </Text>
+        <AppButton 
+         title = 'Ok'
+         press = {() => {
+           setModalVisible(false)
+         }}
+        />
+      </View>
+    </Modal>
     <View style = {styles.container}>
         <View style = { styles.authContainer} >
             <View style = { styles.topView }></View>
@@ -35,8 +67,7 @@ const AuthScreen = ({navigation}) => {
                       <AppButton 
                         title = 'Sign In'
                         press = {()=>{
-                          isValidUser = AuthServices.login(username,Password);
-                          isValidUser == 1 ? navigation.navigate('Home'): navigation.navigate('Sign In');
+                          getUser();
                         }}
                       />
             
@@ -50,6 +81,7 @@ const AuthScreen = ({navigation}) => {
             </View>
         </View>    
     </View>
+  </>
   );
 };
 
