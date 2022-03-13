@@ -18,17 +18,28 @@ const AppItemListCard = ({press}) => {
   //   }
   //   unsubmitedOrders();
   // },[]);
-  
+
+  const [data, setData] = React.useState(scannedItems); 
+  const removeItem = (id) => {
+    let arr = data.filter((item) => {
+      return item.id !== id
+    })
+    setData(arr);
+  };
+
   const renderItem = ({item}) =>{
+
+
     return(
       <AppItemCard 
         itemName = { item.itemName }
         itemCompany = { item.itemCompany }
         itemQts = { item.itemQts }
         totalNumber = { item.totalNumber }
-        index = {scannedItems.map(object => object.id).indexOf(item.id)}
+        index = {data.map(object => object.id).indexOf(item.id)}
         givenPrice = {item.price}
         press = {()=>{
+          removeItem(item.id);
           AuthServices.removeOrder(scannedItems.map(object => object.id).indexOf(item.id));
           
         }}
@@ -39,7 +50,7 @@ const AppItemListCard = ({press}) => {
   return (
     <View style = {styles.listConatiner}>
       <FlatList
-        data={ scannedItems }
+        data={ data }
         renderItem={renderItem}
         //keyExtractor={item => item.Id}
         refreshing = {true}

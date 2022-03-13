@@ -17,6 +17,15 @@ export default [
         price: 2000,
         totalPrice: 12000
     },
+    {
+        id: 3,
+        itemName: 'KARANGA',
+        itemCompany: 'AZAM LTD',
+        itemQts: '3g',
+        totalNumber: 6,
+        price: 500,
+        totalPrice: 12000
+    },
     
     
 

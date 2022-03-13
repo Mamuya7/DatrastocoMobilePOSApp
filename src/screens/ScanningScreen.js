@@ -65,6 +65,7 @@ export class ScanningScreen extends Component {
                     press = {() => {
                       this.setState({modalVisible: false});
                       AuthServices.addOrder(this.state.scannedData,this.state.totalNumberOfProduct);
+                      this.scanner.reactivate();
                       this.props.navigation.navigate('Invoice')
                     }}
                     
@@ -97,12 +98,19 @@ export class ScanningScreen extends Component {
               <View style = {{flexDirection: 'row'}}>
                 <AppButton 
                 title = 'Submited Order'
-                press = {() =>this.props.navigation.navigate('Scanned Items')}
+                press = {() =>{
+                  this.scanner.reactivate();
+                  this.props.navigation.navigate('Scanned Items')
+                }}
               />
 
               <AppButton 
                 title = 'Invoice'
-                press = {() => this.props.navigation.navigate('Invoice')}
+                press = {() => {
+                  this.scanner.reactivate();
+                  this.props.navigation.navigate('Invoice')
+                }}
+                
               />
               </View>
               

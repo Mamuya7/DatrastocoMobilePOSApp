@@ -141,7 +141,7 @@ const InvoiceScreen = ({navigation}) => {
             transparent = {true} 
           >
             <View style = {styles.loginWarning}>
-              <Text style = {styles.warningText}>NO orders </Text>
+              <Text style = {styles.warningText}>No orders </Text>
               <View style = {styles.modalButton}>
                 <AppButton 
                 title = 'Ok'
