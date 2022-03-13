@@ -11,6 +11,7 @@ const HomeScreen = ({navigation}) => {
         <AppCard 
           cardText = 'Scan Product'
           cardonPress = {() => navigation.navigate('Scan')}
+          qrCodeName = 'qr-code-scanner'
         />
         <AppCard 
           cardText = 'Total scanned product'

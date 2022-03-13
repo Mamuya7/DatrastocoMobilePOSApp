@@ -175,6 +175,8 @@ card: {
 },
 
 subCard: {
+  justifyContent: 'center',
+  alignItems: 'center',
   backgroundColor: 'orange',
   width: 50,
   borderRadius: 10,
@@ -233,8 +235,9 @@ itemCard: {
   marginTop: 5,
   borderRadius: 7,
   justifyContent: 'center',
-  elevation: 3
-  
+  elevation: 3,
+  flexDirection: 'row',
+  justifyContent: 'space-between'
   
 },
 
@@ -264,7 +267,7 @@ invoiceText: {
 },
 
 invoiceBody: {
-  backgroundColor: '#fff',
+  backgroundColor: '#ffffff',
   flex: 1,
   borderTopLeftRadius: 20,
   borderTopRightRadius: 20,
@@ -323,7 +326,28 @@ loginWarning: {
 
 warningText: {
   color: 'orange'
-}
+},
+
+cancelCard: {
+  margin: 3,
+  borderWidth: 1,
+  borderRadius: 50,
+  borderColor: '#f0fff0',
+  elevation: 3,
+  backgroundColor: 'white',
+},
+
+modalButton: {
+  flexDirection: 'row',
+},
+
+emptyComponent: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginT: 20,
+  paddingBottom: 300,
+  top: '60%'
+},
 
 
 });

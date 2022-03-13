@@ -1,11 +1,9 @@
-import users from "../data/users";
-import scannedItems from "../data/scannedItems";
-import submitedItemsOrder from "../data/submitedItemsOrder";
 import Queries from "../storage/sqlite/Queries";
+import scannedItems from "../data/scannedItems";
 
 class AuthServices {
-  getOrders = async () => {
-      var results = await Queries.getOrders();
+  getUnsubmitedOrders = async () => {
+      var results = await Queries.getUnsubmitedOrders();
       var l = results.rows.length;
       const items = [];
       for(var x=0; x<l; x++){
@@ -28,65 +26,88 @@ class AuthServices {
       }
   }
 
-  registerUser = (username,password) => {
-    
-    var addedNewUser = false;
-    var oldLength = users.length;
-
-    const newUser = {
-      username: username,
-      password: password
+  getSubmitedOrders = async () =>{
+    var results = await Queries.getSubmitedOrder();
+    var l = results.rows.length;
+    const items = [];
+    for(var x=0; x<l; x++){
+      var currentItem = {
+        'ItemName':results.rows.item(x).ItemName,
+        'ItemCompany':results.rows.item(x).ItemCompany,
+        'ItemQts':results.rows.item(x).ItemQts,
+        'TotalNumberOfItem':results.rows.item(x).TotalNumberOfItem,
+        'Price':results.rows.item(x).Price,
+        'TotalPrice':results.rows.item(x).TotalPrice,
+        'Status':results.rows.item(x).Status
+      }
+      items.push(currentItem);
     }
 
-    var newLenght = users.push(newUser);
-    newLenght > oldLength ? addedNewUser = true: addedNewUser = false;
-    
-    return addedNewUser;
-    
+    if(items.length!=0){
+      return items;
+    }else{
+      console.log('no orders recorded');
+    }
   }
 
-  addScannedItems = (takenData,totalNumberOfProduct) => {
-    var isItemAdded =  false;
-    var getId = scannedItems.length;
+  storeSubmitedScannedItem = async () => {
 
-    const newData = {
-      id: getId+1,
-      itemName: takenData.type,
-      itemCompany: takenData.data,
-      itemQts: 'kg.1',
-      totalNumber: totalNumberOfProduct,
+    var l = scannedItems.length;
+    if(l > 0){
+      for(var x=0; x<l; x++){
+        await Queries.storeOrder(scannedItems[x]);
+      }
+    }else{
+      return 'no scanned order';
     }
 
-    scannedItems.push(newData) > getId? isItemAdded = true: isItemAdded = false;
-    return isItemAdded;
-
+    scannedItems.length = 0;
   }
 
   totalPrice = (price, totalNumber) =>{ 
       return totalNumber*parseInt(price);
   }
 
-  submitOrder = (toBeSubmitedOrderData, price, totalPrice) =>{
+  addOrder = (orderToBeAdded,totalNumberOfProduct) =>{
+    var getLength = scannedItems.length;
 
-    var x =  toBeSubmitedOrderData.length;
-    var y = 0;
-    var getId = submitedItemsOrder.length;
-    var isSubmited = false;
+    const newOrder = {
+      id: getLength+1,
+      itemName: orderToBeAdded.type,
+      itemCompany: orderToBeAdded.data,
+      itemQts: 'kg.1',
+      totalNumber: totalNumberOfProduct,
+      price:4000,
+      totalPrice: 4000*totalNumberOfProduct
+    }
 
-    for(y=0; y>x; y++){
-      const submitedData = {
-        id: getId+1,
-        itemName: toBeSubmitedOrderData.itemName,
-        itemCompany: toBeSubmitedOrderData.itemCompany,
-        itemQts: toBeSubmitedOrderData.itemQts,
-        totalNumber: toBeSubmitedOrderData.totalNumber,
-        price: price,
-        totalPrice: totalPrice
-      }
-      submitedItemsOrder.push(submitedData)>getId ? isSubmited = true: isSubmited = false;
+    if(orderToBeAdded != null ){
+      scannedItems.push(newOrder);
     }
     
   }
+
+  updateObject = (index,price,totalNumber) => {
+    var totalPrice = price*totalNumber;
+    scannedItems[index].price = price;
+    scannedItems[index].totalPrice = totalPrice;
+    
+  }
+
+  clearOrder = () =>{
+    scannedItems.length = 0;
+  }
+
+  removeOrder = (index) =>{
+    scannedItems.splice(index,1); 
+  }
+
+  getOrdersLength = () =>{
+    return scannedItems.length;
+  }
+
 }
+
+
 
 export default new AuthServices();

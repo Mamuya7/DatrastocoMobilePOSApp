@@ -1,11 +1,12 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, Pressable } from 'react-native'
 import React, { useState } from 'react'
 import { styles } from '../../assets/styles/AppStyles'
 import AuthServices from '../../services/AuthServices'
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 
-const AppItemCard = ({ itemName,itemCompany, itemQts,  totalNumber, price }) => {
-  const [modifiedPrice, setModifiedPrice] = useState(price)
+const AppItemCard = ({ itemName,itemCompany, itemQts,  totalNumber, index, givenPrice, press}) => {
+  const [modifiedPrice, setModifiedPrice] = useState(givenPrice)
 
   return (
     <View style = {styles.itemCard}>
@@ -19,12 +20,23 @@ const AppItemCard = ({ itemName,itemCompany, itemQts,  totalNumber, price }) => 
             <TextInput 
               style = {styles.invoicePriceInput} 
               placeholderTextColor={'#808080'}
-              onChangeText = {(e) => setModifiedPrice(e)}
+              onChangeText = {(e) => {
+                setModifiedPrice(e);
+                AuthServices.updateObject(index,e,totalNumber);
+              }}
               keyboardType = 'numeric'
-              placeholder={price}
+              placeholder= {""+givenPrice+""}
             />
          </View>
          <Text style = {[styles.itemText, {fontWeight: 'bold', fontSize: 15}]}>Total Price: TSh.{ AuthServices.totalPrice(modifiedPrice,totalNumber) } </Text>
+        </View>
+        <View >
+          <View style = {styles.cancelCard}>
+            <Pressable onPress = {press}
+            >
+              <Icon name = "cancel" color = 'orange' size = {20} />
+            </Pressable>
+          </View>
         </View>
     </View>
   )

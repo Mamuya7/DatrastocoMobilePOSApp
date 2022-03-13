@@ -1,51 +1,50 @@
 import { View, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import AppItemCard from './AppItemCard';
-import AppButton from '../coreComponent/AppButton';
 import { styles } from '../../assets/styles/AppStyles';
 import AuthServices from '../../services/AuthServices';
+import scannedItems from '../../data/scannedItems';
+import EmptyMessage from './EmptyMessage';
 
-const AppItemListCard = () => {
-  const [itm, setItem] = useState();
 
-  useEffect(()=>{
-    const orders = async (oItems) =>{
-      oItems = await AuthServices.getOrders();
-      setItem(oItems);
-    }
-    orders();
-  },[]);
+
+const AppItemListCard = ({press}) => {
+  // const [itm, setItem] = useState();
+
+  // useEffect(()=>{
+  //   const unsubmitedOrders = async (oItems) =>{
+  //     oItems = await AuthServices.getUnsubmitedOrders();
+  //     setItem(oItems);
+  //   }
+  //   unsubmitedOrders();
+  // },[]);
   
   const renderItem = ({item}) =>{
     return(
       <AppItemCard 
-        itemName = { item.ItemName }
-        itemCompany = { item.ItemCompany }
-        itemQts = { item.ItemQts }
-        totalNumber = { item.TotalNumberOfItem }
-        price = {""+item.Price+""}
-        
+        itemName = { item.itemName }
+        itemCompany = { item.itemCompany }
+        itemQts = { item.itemQts }
+        totalNumber = { item.totalNumber }
+        index = {scannedItems.map(object => object.id).indexOf(item.id)}
+        givenPrice = {item.price}
+        press = {()=>{
+          AuthServices.removeOrder(scannedItems.map(object => object.id).indexOf(item.id));
+          
+        }}
       />
+      
     )
   }
   return (
     <View style = {styles.listConatiner}>
       <FlatList
-        data={ itm }
+        data={ scannedItems }
         renderItem={renderItem}
         //keyExtractor={item => item.Id}
+        refreshing = {true}
+        ListEmptyComponent = {<EmptyMessage navigation = {press} />}
       />
-      <View style = {styles.invoiceButton}>
-          <AppButton 
-              title = 'Submit Order'
-              press = {()=>{
-                AuthServices.getOrders();
-              }}
-          />
-          <AppButton 
-              title = 'Cancel Order'
-          />
-      </View>
     </View> 
 
   )
