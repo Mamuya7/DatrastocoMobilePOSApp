@@ -1,7 +1,10 @@
 import Queries from "../storage/sqlite/Queries";
 import scannedItems from "../data/scannedItems";
 
+
 class AuthServices {
+    
+
   getUnsubmitedOrders = async () => {
       var results = await Queries.getUnsubmitedOrders();
       var l = results.rows.length;
@@ -51,7 +54,6 @@ class AuthServices {
   }
 
   storeSubmitedScannedItem = async () => {
-
     var l = scannedItems.length;
     if(l > 0){
       for(var x=0; x<l; x++){

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { styles } from '../assets/styles/AppStyles';
 import AppTextInput from '../component/coreComponent/AppTextInput';
 import AppButton from '../component/coreComponent/AppButton';
-import AuthServices from '../services/AuthServices';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthScreen = ({navigation}) => {
@@ -15,10 +14,13 @@ const AuthScreen = ({navigation}) => {
   const getUser = async () => {
     try {
       const userObj = await AsyncStorage.getItem('User')
-      let user = JSON.parse(userObj); 
-      if(user.username == username && user.password == Password){
-        navigation.navigate('Home'); 
-      }else{
+      if(userObj != 'undefined' && userObj != null){
+        let user = JSON.parse(userObj); 
+        if(user.username == username && user.password == Password){
+          navigation.navigate('Home'); 
+        }
+      }
+      else{
         setModalVisible(true)
       }  
     } catch(e) {
@@ -36,7 +38,7 @@ const AuthScreen = ({navigation}) => {
     >
       <View style = {styles.loginWarning}>
         <Text style = {styles.warningText}>Incorrect username or password</Text>
-        <Text style = {styles.warningText}>Please sign up first or enter correct sign in entries correctly. </Text>
+        <Text style = {styles.warningText}>Please sign up first or enter sign in entries correctly. </Text>
         <AppButton 
          title = 'Ok'
          press = {() => {

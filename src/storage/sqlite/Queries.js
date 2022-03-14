@@ -1,6 +1,7 @@
 import { db } from "./Database";
 
-class Queries {
+class Queries { 
+    
     storeOrder = async (dataToBeStored) =>{
         db.transaction((tx)=>{
             tx.executeSql(

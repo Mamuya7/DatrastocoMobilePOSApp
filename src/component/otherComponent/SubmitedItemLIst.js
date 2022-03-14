@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import AppSubmitedItemCard from './AppSubmitedItemCard'
 import { styles } from '../../assets/styles/AppStyles'
 import AuthServices from '../../services/AuthServices'
+import EmptySubimitedMessage from './EmptySubimitedMessage'
 
 
 
@@ -12,7 +13,10 @@ const SubmitedItemLIst = () => {
   useEffect(()=>{
     const submitedOrders = async (oItems) =>{
       oItems = await AuthServices.getSubmitedOrders();
-      setItem(oItems);
+        if(oItems!= 'undifined'){
+          setItem(oItems);
+        }
+      
     }
     submitedOrders();
   },[]);
@@ -35,6 +39,7 @@ const SubmitedItemLIst = () => {
             data={ itm }
             renderItem={renderItem}
             // keyExtractor={item => item.id}
+            ListEmptyComponent = {<EmptySubimitedMessage />}
           />
         </View>
     

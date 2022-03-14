@@ -60,7 +60,9 @@ const InvoiceScreen = ({navigation}) => {
                 </View>
                 <View >
                   <View style = {[styles.cancelCard, { left: '200%', bottom: '50%'}]}>
-                    <Pressable onPress={()=>setScanModalVisible(false)}>
+                    <Pressable onPress={()=>{
+                      setScanModalVisible(false)
+                      }}>
                       <Icon name = "cancel" color = 'orange' size = {20} />
                     </Pressable>
                   </View>
@@ -127,7 +129,7 @@ const InvoiceScreen = ({navigation}) => {
                 <AppButton 
                 title = 'Submited Orders'
                 press = {() => {
-                  setSubmitedModalVisible(false)
+                  setSubmitedModalVisible(false);
                   navigation.navigate('Scanned Items');
                 }}
                 />
@@ -144,7 +146,7 @@ const InvoiceScreen = ({navigation}) => {
               <Text style = {styles.warningText}>No orders </Text>
               <View style = {styles.modalButton}>
                 <AppButton 
-                title = 'Ok'
+                title = 'Close'
                 press = {() => {
                   setEmptyToSubmitOrderModal(false);
                 }}

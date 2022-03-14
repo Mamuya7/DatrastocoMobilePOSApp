@@ -9,10 +9,13 @@ const WelcomeScreen = ({navigation}) =>{
   const getUser = async () => {
     try {
       const userObj = await AsyncStorage.getItem('User')
-      let user = JSON.parse(userObj); 
-      if(user.username != null && user.password != null){
+      if(userObj !== 'undifined' && userObj != null){
+        let user = JSON.parse(userObj); 
+        if(user.username != null && user.password != null){
         navigation.navigate('Home'); 
-      }else{
+      }
+      }
+      else{
         navigation.navigate('Sign In')
       }
     } catch(e) {
