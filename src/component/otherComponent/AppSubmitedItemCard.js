@@ -19,3 +19,33 @@ const AppSubmitedItemCard = ({itemName, itemCompany, itemQts, totalNumber, price
 }
 
 export default AppSubmitedItemCard
+
+//izi code unavoacha na nlikuelekeza bro, jamaa akitaka kuona code zako, apa si unaonekana bado kabisa? mbona unachukulia utan aise
+
+// data structure
+ 
+// const formInfo = [
+//   {
+//     label: 'Product Name',
+//     value: 'item name'
+//   },
+//    {
+//      label: 'Product Company',
+//      value: 'item company'
+//    },
+//    {
+//      label: 'Product Quantity',
+//      value: 'item quantity'
+//    }
+//    .
+//    .
+//    .
+//    .
+//    .
+//    .etc
+// ]
+
+
+// usage
+
+// formInfo.map((form) => <FormItem label={form.label} value={form.value} />);
