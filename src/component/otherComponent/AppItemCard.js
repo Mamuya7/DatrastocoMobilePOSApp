@@ -11,10 +11,22 @@ const AppItemCard = ({ itemName,itemCompany, itemQts,  totalNumber, index, given
   return (
     <View style = {styles.itemCard}>
         <View style = {{margin: 10}}>
-         <Text style = {styles.itemText}>Product Name: <Text style = {styles.subItemText}>{ itemName } </Text></Text>
-         <Text style = {styles.itemText}>Product Company: <Text style = {styles.subItemText}>{ itemCompany } </Text></Text>
-         <Text style = {styles.itemText}>Product Qts: <Text style = {styles.subItemText}>{ itemQts } </Text></Text>
-         <Text style = {styles.itemText}>Number Of Product: <Text style = {styles.subItemText}>{ totalNumber } </Text> </Text>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Product Name: </Text>
+            <Text style = {styles.subItemText}>{ itemName } </Text>
+          </View>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Product Company: </Text>
+            <Text style = {styles.subItemText}>{ itemCompany } </Text>
+          </View>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Product Qts: </Text>
+            <Text style = {styles.subItemText}>{ itemQts } </Text>
+          </View>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Number Of Product:  </Text>
+            <Text style = {styles.subItemText}>{ totalNumber } </Text>
+          </View>
          <View style = {styles.invoicePrice}>
             <Text style = {styles.itemText}>Price: <Text style = {styles.subItemText}>TSh. </Text> </Text>
             <TextInput 

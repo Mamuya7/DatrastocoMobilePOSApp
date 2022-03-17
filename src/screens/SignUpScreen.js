@@ -1,16 +1,18 @@
-import { View, Text, Pressable, Alert } from 'react-native';
+import { View, Text, Pressable, Alert, Modal } from 'react-native';
 import React, { useState } from 'react';
 import { styles } from '../assets/styles/AppStyles';
 import AppTextInput from '../component/coreComponent/AppTextInput';
 import AppButton from '../component/coreComponent/AppButton';
 import AuthServices from '../services/AuthServices';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
 const SignUpScreen = ({navigation}) => {
 
   const [username, setUsername] = useState(null);
   const [Password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
+  const [registeredModal, setRegisteredModal] = useState(false);
 
 
   const storeData = async () => {
@@ -33,7 +35,7 @@ const SignUpScreen = ({navigation}) => {
           Alert.alert('warning!',' Password and confirm password does not match');
         }else{
           AsyncStorage.setItem('User', JSON.stringify(user))
-          navigation.navigate('Sign In');
+          setRegisteredModal(true)
         }
       } catch (e) {
         console.log(e);
@@ -42,6 +44,38 @@ const SignUpScreen = ({navigation}) => {
   }
   
   return (
+    <>
+    <Modal
+            visible = {registeredModal}
+            animationType =  'slide'
+            transparent = {true} 
+          >
+            <View style = {styles.loginWarning}>
+              <View style = {{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <View style = {{alignItems: 'center'}}>
+                  <Text style = {styles.warningText}>Successful registered..</Text>
+                  <Text style = {styles.warningText}>Click the button bellow to Sign In </Text>
+                </View>
+                <View >
+                  <View style = {[styles.cancelCard, { left: '200%', bottom: '50%'}]}>
+                    <Pressable onPress={()=>setRegisteredModal(false)}>
+                      <Icon name = "cancel" color = 'orange' size = {20} />
+                    </Pressable>
+                  </View>
+                </View>
+              </View>
+              <View style = {styles.modalButton}>
+                <AppButton 
+                title = 'Sign In'
+                press = {() => {
+                  setRegisteredModal(false);
+                  navigation.navigate('Sign In');
+                }}
+                />
+                
+              </View>
+            </View>
+          </Modal>
     <View style = {styles.container}>
         <View style = { styles.authContainer} >
             <View style = { styles.topView }></View>
@@ -78,6 +112,7 @@ const SignUpScreen = ({navigation}) => {
             </View>
         </View>    
     </View>
+    </>
   );
 };
 

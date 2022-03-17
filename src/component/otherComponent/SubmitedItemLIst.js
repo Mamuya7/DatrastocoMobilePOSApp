@@ -8,7 +8,7 @@ import EmptySubimitedMessage from './EmptySubimitedMessage'
 
 
 const SubmitedItemLIst = () => {
-  const [itm, setItem] = useState();
+  const [itm, setItem] = useState('');
 
   useEffect(()=>{
     const submitedOrders = async (oItems) =>{

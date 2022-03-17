@@ -349,6 +349,10 @@ emptyComponent: {
   top: '60%'
 },
 
+itemTextCard:{
+  flexDirection: 'row'
+}
+
 
 });
 

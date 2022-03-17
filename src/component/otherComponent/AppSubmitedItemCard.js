@@ -7,11 +7,26 @@ const AppSubmitedItemCard = ({itemName, itemCompany, itemQts, totalNumber, price
   return (
     <View style = {styles.submitedItemCard}>
         <View style = {{margin: 10}}>
-         <Text style = {styles.itemText}>Product Name: <Text style = {styles.subItemText}>{ itemName } </Text></Text>
-         <Text style = {styles.itemText}>Product Company: <Text style = {styles.subItemText}>{ itemCompany } </Text></Text>
-         <Text style = {styles.itemText}>Product Qts: <Text style = {styles.subItemText}>{ itemQts } </Text></Text>
-         <Text style = {styles.itemText}>Number Of Product: <Text style = {styles.subItemText}>{ totalNumber } </Text> </Text>
-         <Text style = {styles.itemText}>Price <Text style = {styles.subItemText}>{ price } </Text> </Text>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Product Name: </Text>
+            <Text style = {styles.subItemText}>{ itemName } </Text>
+          </View>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Product Company: </Text>
+            <Text style = {styles.subItemText}>{ itemCompany } </Text>
+          </View>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Product Qts: </Text>
+            <Text style = {styles.subItemText}>{ itemQts } </Text>
+          </View>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Number Of Product:  </Text>
+            <Text style = {styles.subItemText}>{ totalNumber } </Text>
+          </View>
+          <View style= {styles.itemTextCard}>
+            <Text style = {styles.itemText}>Price  </Text>
+            <Text style = {styles.subItemText}>{ price } </Text>
+          </View>
          <Text style = {[styles.itemText, {fontWeight: 'bold', fontSize: 15}]}>Total Price: TSh.{ totalPrice } </Text>
         </View>
     </View>
@@ -20,32 +35,3 @@ const AppSubmitedItemCard = ({itemName, itemCompany, itemQts, totalNumber, price
 
 export default AppSubmitedItemCard
 
-//izi code unavoacha na nlikuelekeza bro, jamaa akitaka kuona code zako, apa si unaonekana bado kabisa? mbona unachukulia utan aise
-
-// data structure
- 
-// const formInfo = [
-//   {
-//     label: 'Product Name',
-//     value: 'item name'
-//   },
-//    {
-//      label: 'Product Company',
-//      value: 'item company'
-//    },
-//    {
-//      label: 'Product Quantity',
-//      value: 'item quantity'
-//    }
-//    .
-//    .
-//    .
-//    .
-//    .
-//    .etc
-// ]
-
-
-// usage
-
-// formInfo.map((form) => <FormItem label={form.label} value={form.value} />);

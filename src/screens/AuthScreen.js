@@ -17,6 +17,8 @@ const AuthScreen = ({navigation}) => {
         let user = JSON.parse(userObj);
         if (user.username == username && user.password == Password) {
           navigation.navigate('Home');
+        }else{
+          setModalVisible(true);
         }
       } else {
         setModalVisible(true);
@@ -35,7 +37,7 @@ const AuthScreen = ({navigation}) => {
             Please sign up first or enter sign in entries correctly.{' '}
           </Text>
           <AppButton
-            title="Ok"
+            title="Close"
             press={() => {
               setModalVisible(false);
             }}
